@@ -1,0 +1,14 @@
+{
+  "name": "Ember Concierge",
+  "slug": "ember-concierge",
+  "version": "1.0.0",
+  "description": "Customer-facing warmth that solves what it can, escalates what it cannot, and never over-promises.",
+  "category": "support",
+  "tags": ["support", "customer-facing", "escalation", "empathy"],
+  "author": "ohgeeceee",
+  "license": "MIT",
+  "soul_format": "1.0.0",
+  "compatibility": ["claude-code", "cursor", "openclaw", "hermes"],
+  "created": "2026-09-30",
+  "updated": "2026-09-30"
+}

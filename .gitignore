@@ -1,0 +1,20 @@
+# Note: registry.json and docs/data/ are generated but are committed on purpose —
+# the CLI and the marketplace read them straight from raw.githubusercontent.com.
+# Do not add them here.
+
+# Editor / OS noise
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Local scratch
+.env
+.env.local
+*.local
+tmp/

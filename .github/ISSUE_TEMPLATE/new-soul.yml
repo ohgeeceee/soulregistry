@@ -1,0 +1,89 @@
+name: Submit a soul
+description: Propose a new SOUL.md for the registry
+title: "feat(souls): add <slug>"
+labels: ["soul", "needs-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for writing a soul. Read [SPEC.md](../blob/main/SPEC.md) for the format and
+        [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) for the quality bar before filling this in.
+
+  - type: input
+    id: name
+    attributes:
+      label: Soul name
+      placeholder: Aurora Archivist
+    validations:
+      required: true
+
+  - type: input
+    id: slug
+    attributes:
+      label: Slug
+      description: Lowercase kebab-case. Must match the directory name.
+      placeholder: aurora-archivist
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - research
+        - engineering
+        - operations
+        - security
+        - education
+        - product
+        - creative
+        - support
+        - personal
+        - experimental
+    validations:
+      required: true
+
+  - type: input
+    id: description
+    attributes:
+      label: One-line description
+      description: Under 140 characters. No trailing period needed.
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why this soul deserves to exist
+      description: What does it do that no soul already in the registry does?
+    validations:
+      required: true
+
+  - type: textarea
+    id: refusals
+    attributes:
+      label: What it refuses
+      description: List the boundaries — a soul with no refusals is a yes-machine and will be rejected.
+    validations:
+      required: true
+
+  - type: input
+    id: tests
+    attributes:
+      label: Have you run the validator?
+      placeholder: "node scripts/validate.mjs — passes locally"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmation
+      options:
+        - label: I have read the quality bar in CONTRIBUTING.md
+          required: true
+        - label: This soul is a character, not a task list or a job description
+          required: true
+        - label: I ran `node scripts/build-registry.mjs` and committed the generated files
+          required: true

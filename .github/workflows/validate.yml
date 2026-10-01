@@ -1,0 +1,86 @@
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  souls:
+    name: lint souls + generated artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate every soul
+        run: node scripts/validate.mjs
+
+      - name: Validate soul.json against the JSON Schema
+        run: |
+          npm install --no-save ajv@8 ajv-formats@3 >/dev/null 2>&1
+          node --input-type=module -e "
+            import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
+            import { join } from 'node:path';
+            import Ajv from 'ajv';
+            const ajv = new Ajv({ allErrors: true, strict: false });
+            const schema = JSON.parse(readFileSync('schema/soul.schema.json', 'utf8'));
+            const validate = ajv.compile(schema);
+            let checked = 0, bad = 0;
+            for (const author of readdirSync('souls')) {
+              const ad = join('souls', author);
+              if (!statSync(ad).isDirectory()) continue;
+              for (const slug of readdirSync(ad)) {
+                const p = join(ad, slug, 'soul.json');
+                if (!existsSync(p)) continue;
+                checked++;
+                const ok = validate(JSON.parse(readFileSync(p, 'utf8')));
+                if (!ok) {
+                  bad++;
+                  console.log('FAIL ' + p);
+                  for (const e of validate.errors) console.log('   ' + e.instancePath + ' ' + e.message);
+                }
+              }
+            }
+            console.log(checked + ' soul.json file(s) checked against the schema');
+            if (bad) process.exit(1);
+          "
+
+      - name: Check generated artifacts are current
+        run: |
+          node scripts/build-registry.mjs
+          if ! git diff --quiet -- registry.json docs/data; then
+            echo "::error::registry.json or docs/data is stale. Run 'node scripts/build-registry.mjs' and commit the result."
+            git --no-pager diff --stat -- registry.json docs/data
+            exit 1
+          fi
+          echo "generated artifacts are up to date"
+
+      - name: Smoke-test the CLI
+        run: |
+          node cli/index.mjs list
+          node cli/index.mjs search incident
+          node cli/index.mjs info grim-operator
+          node cli/index.mjs help > /dev/null
+
+      - name: Check the marketplace data loads
+        run: |
+          node --input-type=module -e "
+            import { readFileSync } from 'node:fs';
+            const d = JSON.parse(readFileSync('docs/data/souls.json', 'utf8'));
+            if (!d.souls || !d.souls.length) throw new Error('no souls in docs/data/souls.json');
+            for (const s of d.souls) {
+              if (!s.body || s.body.length < 400) throw new Error(s.slug + ' has no body');
+              for (const k of ['name','slug','category','tags','description']) {
+                if (!s[k]) throw new Error(s.slug + ' missing ' + k);
+              }
+            }
+            console.log(d.souls.length + ' souls present in the marketplace data');
+          "

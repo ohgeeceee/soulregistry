@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Read the spec first
+    url: https://github.com/ohgeeceee/soulregistry/blob/main/SPEC.md
+    about: The SOUL.md format — required sections, fields, and quality bar.
+  - name: How to contribute
+    url: https://github.com/ohgeeceee/soulregistry/blob/main/CONTRIBUTING.md
+    about: The review checklist maintainers use, and the templates to start from.
+  - name: Questions and ideas
+    url: https://github.com/ohgeeceee/soulregistry/discussions
+    about: Ask about the format, propose a category, or discuss a soul you are writing.

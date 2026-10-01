@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOUL.md Registry — portable identities for AI agents</title>
+<meta name="description" content="An open registry and marketplace for SOUL.md files: portable identity, judgment, and voice configurations for autonomous AI agents. Browse, copy, and install.">
+<meta name="color-scheme" content="dark">
+<meta property="og:title" content="SOUL.md Registry">
+<meta property="og:description" content="Portable identity, judgment, and voice configurations for autonomous AI agents.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="sky" aria-hidden="true"></div>
+
+<header class="site">
+  <div class="bar">
+    <a class="brand" href="#top">
+      <span class="glyph" aria-hidden="true">🧠</span>
+      <span>soulregistry</span>
+    </a>
+    <nav>
+      <a href="#browse">Browse</a>
+      <a href="#install" class="hide-sm">Install</a>
+      <a href="#submit" class="hide-sm">Submit</a>
+      <a href="https://github.com/ohgeeceee/soulregistry" target="_blank" rel="noopener">GitHub ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero wrap">
+    <div class="kicker">Open registry · SOUL.md spec v1.0.0</div>
+    <h1>Every agent deserves<br><span class="grad">a soul worth loading.</span></h1>
+    <p class="lede">
+      A system prompt tells an agent what to do. A <strong>SOUL.md</strong> decides who it is —
+      its worldview, its judgment under ambiguity, and the things it refuses to do.
+      Portable across Claude Code, Cursor, OpenClaw, Hermes, and anything else with a context window.
+    </p>
+    <p class="sub">Browse the registry, copy a soul verbatim, or install one with the CLI.</p>
+    <div class="cta">
+      <a class="btn" href="#browse">Browse the registry</a>
+      <button class="btn ghost" data-copy="npx github:ohgeeceee/soulregistry search incident">Copy CLI command</button>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="stats" id="stats">
+      <div class="stat"><div class="n" id="stat-souls">—</div><div class="l">Souls</div></div>
+      <div class="stat"><div class="n" id="stat-cats">—</div><div class="l">Categories</div></div>
+      <div class="stat"><div class="n" id="stat-tags">—</div><div class="l">Tags</div></div>
+      <div class="stat"><div class="n" id="stat-hosts">—</div><div class="l">Hosts</div></div>
+    </div>
+  </section>
+
+  <section class="wrap" id="browse">
+    <div class="sec-head">
+      <h2>Browse the registry</h2>
+      <p>Click any soul to read it in full, copy it, or download the file.</p>
+    </div>
+
+    <div class="controls">
+      <div class="searchbox">
+        <span class="icon" aria-hidden="true">⌕</span>
+        <label class="sr" for="q">Search souls</label>
+        <input id="q" type="search" placeholder="search souls — try “incident”, “citations”, “scope”" autocomplete="off">
+        <span class="kbd">/</span>
+      </div>
+      <label class="sr" for="cat">Category</label>
+      <select id="cat" class="filter"><option value="">all categories</option></select>
+      <label class="sr" for="sort">Sort</label>
+      <select id="sort" class="filter">
+        <option value="name">sort: name</option>
+        <option value="updated">sort: recently updated</option>
+        <option value="category">sort: category</option>
+      </select>
+    </div>
+
+    <div class="tags" id="tags"></div>
+    <div class="resultline" id="resultline"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="wrap" id="install">
+    <div class="sec-head">
+      <h2>Install a soul</h2>
+      <p>One file, pasted verbatim. No SDK, no build step, no lock-in.</p>
+    </div>
+    <div class="two-col">
+      <div class="panel">
+        <h3><span class="num">01</span> Via the CLI</h3>
+        <p>Zero dependencies. Node 18+. Reads the registry from GitHub, writes the files locally.</p>
+        <div class="copyline">
+          <pre class="snippet">npx github:ohgeeceee/soulregistry list</pre>
+          <button class="btn ghost" data-copy="npx github:ohgeeceee/soulregistry list" aria-label="Copy">Copy</button>
+        </div>
+        <div class="copyline">
+          <pre class="snippet">npx github:ohgeeceee/soulregistry \
+  install aurora-archivist --to ./souls</pre>
+          <button class="btn ghost" data-copy="npx github:ohgeeceee/soulregistry install aurora-archivist --to ./souls" aria-label="Copy">Copy</button>
+        </div>
+        <p style="margin-top:14px">
+          Other commands: <code>search &lt;query&gt;</code>, <code>info &lt;slug&gt;</code>,
+          <code>list --category research</code>, <code>validate</code>.
+        </p>
+      </div>
+      <div class="panel">
+        <h3><span class="num">02</span> Where it goes</h3>
+        <p>Paste the body of <code>SOUL.md</code> verbatim. Summarising it into a system prompt destroys the voice — the voice is the product.</p>
+        <ul>
+          <li><strong>Claude Code</strong> — <code>CLAUDE.md</code> (project or <code>~/.claude/</code>)</li>
+          <li><strong>Cursor</strong> — <code>.cursor/rules/&lt;slug&gt;.mdc</code></li>
+          <li><strong>OpenClaw</strong> — the agent's <code>SOUL.md</code> slot</li>
+          <li><strong>Hermes</strong> — <code>~/.hermes/SOUL.md</code></li>
+          <li><strong>Anything else</strong> — your system prompt</li>
+        </ul>
+        <p>Load one soul at a time. Two voice specs in one context cancel each other out.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="submit">
+    <div class="sec-head">
+      <h2>Submit a soul</h2>
+      <p>The registry is open. If you can write a character, you can publish one.</p>
+    </div>
+    <div class="two-col">
+      <div class="panel">
+        <h3><span class="num">01</span> The shape</h3>
+        <p>One directory per soul, six required sections in <code>SOUL.md</code>:</p>
+        <ol>
+          <li>Core Identity — who it is, in its own voice</li>
+          <li>Worldview — the beliefs that generate its judgment</li>
+          <li>Decision Heuristics — testable rules for ambiguous moments</li>
+          <li>Voice &amp; Tone — how it sounds, and what it never sounds like</li>
+          <li>Boundaries — what it refuses and escalates</li>
+          <li>Edge Cases — named situations and required responses</li>
+        </ol>
+        <p>Full rules: <a href="https://github.com/ohgeeceee/soulregistry/blob/main/SPEC.md" target="_blank" rel="noopener" style="color:var(--violet-soft)">SPEC.md</a>.</p>
+      </div>
+      <div class="panel">
+        <h3><span class="num">02</span> The pull request</h3>
+        <div class="copyline">
+          <pre class="snippet">git clone https://github.com/ohgeeceee/soulregistry
+cd soulregistry
+mkdir -p souls/&lt;your-handle&gt;/&lt;slug&gt;
+# add soul.json + SOUL.md
+node scripts/validate.mjs
+node scripts/build-registry.mjs</pre>
+          <button class="btn ghost" data-copy="git clone https://github.com/ohgeeceee/soulregistry
+cd soulregistry
+mkdir -p souls/<your-handle>/<slug>
+node scripts/validate.mjs
+node scripts/build-registry.mjs" aria-label="Copy">Copy</button>
+        </div>
+        <p>CI validates every soul on the pull request and fails the build on a malformed one. The quality bar is in <a href="https://github.com/ohgeeceee/soulregistry/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" style="color:var(--violet-soft)">CONTRIBUTING.md</a> — the short version: a soul is a character, not a task list.</p>
+        <a class="btn" href="https://github.com/ohgeeceee/soulregistry/fork" target="_blank" rel="noopener">Fork the registry</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>MIT · <span id="built">—</span></p>
+    <div class="links">
+      <a href="https://github.com/ohgeeceee/soulregistry" target="_blank" rel="noopener">Repository</a>
+      <a href="https://github.com/ohgeeceee/soulregistry/blob/main/SPEC.md" target="_blank" rel="noopener">Spec</a>
+      <a href="https://github.com/ohgeeceee/soulregistry/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contribute</a>
+      <a href="https://github.com/ohgeeceee/soulregistry/issues" target="_blank" rel="noopener">Issues</a>
+    </div>
+  </div>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-inner">
+    <div class="modal-head">
+      <div>
+        <h2 id="modal-title">—</h2>
+        <div class="meta" id="modal-meta"></div>
+      </div>
+      <button class="close" id="modal-close" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-actions" id="modal-actions"></div>
+    <div class="tabs" id="modal-tabs"></div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

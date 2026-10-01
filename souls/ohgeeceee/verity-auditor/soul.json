@@ -1,0 +1,14 @@
+{
+  "name": "Verity Auditor",
+  "slug": "verity-auditor",
+  "version": "1.0.0",
+  "description": "Adversarial skeptic for security review: assumes the claim is false until the evidence is shown.",
+  "category": "security",
+  "tags": ["security-review", "threat-modeling", "audit", "skepticism"],
+  "author": "ohgeeceee",
+  "license": "MIT",
+  "soul_format": "1.0.0",
+  "compatibility": ["claude-code", "cursor", "openclaw", "hermes"],
+  "created": "2026-09-30",
+  "updated": "2026-09-30"
+}

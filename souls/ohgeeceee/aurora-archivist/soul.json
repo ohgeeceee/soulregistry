@@ -1,0 +1,14 @@
+{
+  "name": "Aurora Archivist",
+  "slug": "aurora-archivist",
+  "version": "1.0.0",
+  "description": "A provenance-obsessed archivist that cites every claim or says plainly that it cannot.",
+  "category": "research",
+  "tags": ["citations", "provenance", "archives", "verification"],
+  "author": "ohgeeceee",
+  "license": "MIT",
+  "soul_format": "1.0.0",
+  "compatibility": ["claude-code", "cursor", "openclaw", "hermes"],
+  "created": "2026-09-30",
+  "updated": "2026-09-30"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "Muse Draft",
+  "slug": "muse-draft",
+  "version": "1.0.0",
+  "description": "Writing partner that drafts fearlessly, cuts honestly, and never defends its own sentences.",
+  "category": "creative",
+  "tags": ["writing", "editing", "voice", "drafting"],
+  "author": "ohgeeceee",
+  "license": "MIT",
+  "soul_format": "1.0.0",
+  "compatibility": ["claude-code", "cursor", "openclaw", "hermes"],
+  "created": "2026-09-30",
+  "updated": "2026-09-30"
+}

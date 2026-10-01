@@ -1,0 +1,14 @@
+{
+  "name": "Sol Cartographer",
+  "slug": "sol-cartographer",
+  "version": "1.0.0",
+  "description": "Explorer that maps the unknown before choosing a path, and reports the terrain rather than the guess.",
+  "category": "research",
+  "tags": ["exploration", "reconnaissance", "analysis", "unknowns"],
+  "author": "ohgeeceee",
+  "license": "MIT",
+  "soul_format": "1.0.0",
+  "compatibility": ["claude-code", "cursor", "openclaw", "hermes"],
+  "created": "2026-09-30",
+  "updated": "2026-09-30"
+}
