@@ -258,6 +258,109 @@
     }
   }
 
+  function initMindfield() {
+    const canvas = $('#mindfield');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const field = canvas.parentElement;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let width = 0;
+    let height = 0;
+    let frame = 0;
+    let pointer = { x: 0, y: 0, active: false };
+    let nodes = [];
+    let stars = [];
+
+    const resize = () => {
+      const box = field.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = box.width;
+      height = box.height;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const seed = (i) => {
+        const n = Math.sin(i * 127.1 + 311.7) * 43758.5453;
+        return n - Math.floor(n);
+      };
+      nodes = Array.from({ length: 46 }, (_, i) => {
+        const angle = seed(i + 2) * Math.PI * 2;
+        const radius = Math.sqrt(seed(i + 85)) * .44;
+        return { x: .5 + Math.cos(angle) * radius, y: .5 + Math.sin(angle) * radius * .82, phase: seed(i + 140) * 6.28, size: 1 + seed(i + 260) * 1.6 };
+      });
+      stars = Array.from({ length: 68 }, (_, i) => ({ x: seed(i + 401), y: seed(i + 511), alpha: .12 + seed(i + 621) * .4, phase: seed(i + 731) * 6.28 }));
+    };
+
+    const draw = (time = 0) => {
+      const t = reduced ? 0 : time * .00018;
+      ctx.clearRect(0, 0, width, height);
+      const cx = width * .5 + (pointer.active ? (pointer.x - .5) * 20 : 0);
+      const cy = height * .51 + (pointer.active ? (pointer.y - .5) * 18 : 0);
+      const scale = Math.min(width, height) * .88;
+
+      for (const star of stars) {
+        const alpha = star.alpha * (reduced ? 1 : .65 + .35 * Math.sin(t * 8 + star.phase));
+        ctx.fillStyle = `rgba(221,245,195,${alpha})`;
+        ctx.fillRect(star.x * width, star.y * height, 1, 1);
+      }
+
+      const points = nodes.map((node) => {
+        const orbit = t * (node.phase % 2 > 1 ? 1 : -1);
+        const angle = node.phase + orbit;
+        const r = scale * Math.hypot(node.x - .5, node.y - .5);
+        return { x: cx + Math.cos(angle) * r, y: cy + Math.sin(angle) * r * .82, size: node.size };
+      });
+      const limit = Math.min(width, height) * .2;
+      for (let i = 0; i < points.length; i++) {
+        for (let j = i + 1; j < points.length; j++) {
+          const dx = points[i].x - points[j].x;
+          const dy = points[i].y - points[j].y;
+          const d = Math.hypot(dx, dy);
+          if (d > limit) continue;
+          const alpha = (1 - d / limit) * .21;
+          ctx.strokeStyle = `rgba(174,230,123,${alpha})`;
+          ctx.lineWidth = .65;
+          ctx.beginPath(); ctx.moveTo(points[i].x, points[i].y); ctx.lineTo(points[j].x, points[j].y); ctx.stroke();
+        }
+      }
+
+      for (const point of points) {
+        ctx.fillStyle = 'rgba(210,255,155,.8)';
+        ctx.beginPath(); ctx.arc(point.x, point.y, point.size, 0, Math.PI * 2); ctx.fill();
+      }
+
+      const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, scale * .2);
+      glow.addColorStop(0, 'rgba(192,255,113,.16)');
+      glow.addColorStop(.42, 'rgba(95,175,112,.07)');
+      glow.addColorStop(1, 'rgba(95,175,112,0)');
+      ctx.fillStyle = glow;
+      ctx.beginPath(); ctx.arc(cx, cy, scale * .2, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = 'rgba(204,255,142,.34)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(cx, cy, scale * .09, 0, Math.PI * 2); ctx.stroke();
+      ctx.strokeStyle = 'rgba(204,255,142,.16)';
+      ctx.beginPath(); ctx.ellipse(cx, cy, scale * .26, scale * .105, -.48, 0, Math.PI * 2); ctx.stroke();
+      ctx.fillStyle = '#d8ff9d';
+      ctx.beginPath(); ctx.arc(cx, cy, 3, 0, Math.PI * 2); ctx.fill();
+      if (!reduced) frame = window.requestAnimationFrame(draw);
+    };
+
+    field.addEventListener('pointermove', (event) => {
+      const box = field.getBoundingClientRect();
+      pointer = { x: (event.clientX - box.left) / box.width, y: (event.clientY - box.top) / box.height, active: true };
+    });
+    field.addEventListener('pointerleave', () => { pointer.active = false; });
+    const observer = new ResizeObserver(() => { resize(); if (reduced) draw(); });
+    observer.observe(field);
+    resize();
+    draw();
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) window.cancelAnimationFrame(frame);
+      else if (!reduced) frame = window.requestAnimationFrame(draw);
+    });
+  }
+
   /* -------------------------------------------------------------------- modal */
 
   function openModal(slug, keepTab) {
@@ -377,6 +480,7 @@
     }
   }
 
+  initMindfield();
   wire();
   load();
 })();

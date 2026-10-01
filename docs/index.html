@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SOUL.md Registry — portable identities for AI agents</title>
-<meta name="description" content="An open registry and marketplace for SOUL.md files: portable identity, judgment, and voice configurations for autonomous AI agents. Browse, copy, and install.">
+<meta name="description" content="Give AI agents a point of view. Explore the open registry of portable SOUL.md identities: judgment, voice, boundaries, and behavior in files you can inspect and install.">
 <meta name="color-scheme" content="dark">
 <meta property="og:title" content="SOUL.md Registry">
-<meta property="og:description" content="Portable identity, judgment, and voice configurations for autonomous AI agents.">
+<meta property="og:description" content="A point of view for every machine. Explore portable identities for AI agents.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 <link rel="stylesheet" href="styles.css">
@@ -22,9 +22,9 @@
       <span>soulregistry</span>
     </a>
     <nav>
-      <a href="#browse">Browse</a>
+      <a href="#browse">The registry</a>
+      <a href="#signal" class="hide-sm">How it works</a>
       <a href="#install" class="hide-sm">Install</a>
-      <a href="#submit" class="hide-sm">Submit</a>
       <a href="https://github.com/ohgeeceee/soulregistry" target="_blank" rel="noopener">GitHub ↗</a>
     </nav>
   </div>
@@ -32,19 +32,30 @@
 
 <main id="top">
   <section class="hero wrap">
-    <div class="kicker">Open registry · SOUL.md spec v1.0.0</div>
-    <h1>Every agent deserves<br><span class="grad">a soul worth loading.</span></h1>
-    <p class="lede">
-      A system prompt tells an agent what to do. A <strong>SOUL.md</strong> decides who it is —
-      its worldview, its judgment under ambiguity, and the things it refuses to do.
-      Portable across Claude Code, Cursor, OpenClaw, Hermes, and anything else with a context window.
-    </p>
-    <p class="sub">Browse the registry, copy a soul verbatim, or install one with the CLI.</p>
-    <div class="cta">
-      <a class="btn" href="#browse">Browse the registry</a>
-      <button class="btn ghost" data-copy="npx github:ohgeeceee/soulregistry search incident">Copy CLI command</button>
+    <div class="hero-copy">
+      <div class="kicker"><span class="pulse-dot"></span> An open registry for machine identity <span class="kicker-index">FIELD NOTE 001 / EARTH</span></div>
+      <h1>Intelligence<br>needs a <span class="grad">point of view.</span></h1>
+      <p class="lede">Give your AI a way to see the world. <strong>SOUL.md</strong> is the portable identity layer for an agent: its judgment, voice, boundaries, and instincts, written down for you to inspect.</p>
+      <div class="cta">
+        <a class="btn" href="#browse">Explore the registry <span aria-hidden="true">↘</span></a>
+        <button class="btn ghost" data-copy="npx github:ohgeeceee/soulregistry search incident"><span class="terminal-mark" aria-hidden="true">›_</span> Copy a search command</button>
+      </div>
+      <div class="hero-proof"><span>OPEN FORMAT</span><i></i><span>HUMAN-READABLE</span><i></i><span>YOURS TO CHOOSE</span></div>
+    </div>
+    <div class="hero-visual" aria-label="Animated map of connected ideas and agent identities">
+      <div class="visual-topline"><span>FIG. 01 — THE MINDSPACE</span><span>● TRANSMITTING</span></div>
+      <canvas id="mindfield" aria-hidden="true"></canvas>
+      <div class="orbit-caption orbit-caption-a"><span>01 / VOICE</span><b>how it sounds</b></div>
+      <div class="orbit-caption orbit-caption-b"><span>02 / JUDGMENT</span><b>how it decides</b></div>
+      <div class="orbit-caption orbit-caption-c"><span>03 / BOUNDARIES</span><b>where it stops</b></div>
+      <div class="visual-coordinate">37°46′49″N<br>122°25′09″W</div>
+      <div class="visual-stamp">IDENTITY<br>IS A DESIGN<br>SPACE<span>✳</span></div>
     </div>
   </section>
+
+  <div class="ticker" aria-label="SOUL registry principles"><div class="ticker-track" aria-hidden="true">
+    <span>PERSONALITY IS A SYSTEM</span><b>✳</b><span>OPEN BY DESIGN</span><b>✳</b><span>JUDGMENT, MADE PORTABLE</span><b>✳</b><span>PERSONALITY IS A SYSTEM</span><b>✳</b><span>OPEN BY DESIGN</span><b>✳</b><span>JUDGMENT, MADE PORTABLE</span><b>✳</b>
+  </div></div>
 
   <section class="wrap">
     <div class="stats" id="stats">
@@ -55,10 +66,39 @@
     </div>
   </section>
 
+  <section class="signal wrap" id="signal">
+    <div class="signal-heading">
+      <div><div class="section-index">01 — A NEW LAYER OF THE STACK</div><h2>Not another prompt.<br><span>A mind with edges.</span></h2></div>
+      <p>Models bring the intelligence. A soul gives that intelligence a shape: what it notices, how it weighs a choice, and when it says no.</p>
+    </div>
+    <div class="signal-grid">
+      <article class="signal-card signal-card-feature">
+        <div class="signal-card-top"><span>CAPABILITY / 001</span><span class="signal-glyph">◉</span></div>
+        <div class="signal-visual voice-visual" aria-hidden="true"><div class="waveform"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span>VOICE / SIGNAL</span></div>
+        <h3>Character, not costume.</h3><p>Give an agent a worldview, a voice, and decision heuristics that hold together across the conversation.</p>
+      </article>
+      <article class="signal-card">
+        <div class="signal-card-top"><span>CAPABILITY / 002</span><span class="signal-glyph">↗</span></div>
+        <div class="signal-visual portable-visual" aria-hidden="true"><span>CLAUDE</span><b>→</b><span>CURSOR</span><b>→</b><span>OPENCLAW</span></div>
+        <h3>One identity. Many hosts.</h3><p>Portable Markdown travels with you. Use it in Claude Code, Cursor, OpenClaw, Hermes, or any context window.</p>
+      </article>
+      <article class="signal-card">
+        <div class="signal-card-top"><span>CAPABILITY / 003</span><span class="signal-glyph">⌕</span></div>
+        <div class="signal-visual search-visual" aria-hidden="true"><span>“incident”</span><i>↵</i><small>8 SOULS SCANNED · 3 MATCHES</small></div>
+        <h3>Find the right instinct.</h3><p>Search names, tags, and the full soul text. Compare before you load anything into your stack.</p>
+      </article>
+      <article class="signal-card signal-card-raw">
+        <div class="signal-card-top"><span>CAPABILITY / 004</span><span class="signal-glyph">⌘</span></div>
+        <div class="signal-visual code-visual" aria-hidden="true"><span>## Decision heuristics</span><em>if evidence is thin:</em><strong>  ask before assuming</strong><span>## Boundaries</span><b>  never invent certainty</b></div>
+        <h3>Readable all the way down.</h3><p>Every soul is a file, not a black box. Read it, copy it, adapt it, or leave it behind.</p>
+      </article>
+    </div>
+  </section>
+
   <section class="wrap" id="browse">
     <div class="sec-head">
-      <h2>Browse the registry</h2>
-      <p>Click any soul to read it in full, copy it, or download the file.</p>
+      <div class="section-index">02 — CHOOSE YOUR ORBIT</div><h2>Browse the mindspace</h2>
+      <p>Eight distinct points of view. Open any soul to read it in full, copy it, or download the file.</p>
     </div>
 
     <div class="controls">
