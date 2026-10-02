@@ -56,9 +56,9 @@ jobs:
       - name: Check generated artifacts are current
         run: |
           node scripts/build-registry.mjs
-          if ! git diff --quiet -- registry.json docs/data; then
-            echo "::error::registry.json or docs/data is stale. Run 'node scripts/build-registry.mjs' and commit the result."
-            git --no-pager diff --stat -- registry.json docs/data
+          if ! git diff --quiet -- registry.json data; then
+            echo "::error::registry.json or data/ is stale. Run 'node scripts/build-registry.mjs' and commit the result."
+            git --no-pager diff --stat -- registry.json data
             exit 1
           fi
           echo "generated artifacts are up to date"
@@ -74,8 +74,8 @@ jobs:
         run: |
           node --input-type=module -e "
             import { readFileSync } from 'node:fs';
-            const d = JSON.parse(readFileSync('docs/data/souls.json', 'utf8'));
-            if (!d.souls || !d.souls.length) throw new Error('no souls in docs/data/souls.json');
+            const d = JSON.parse(readFileSync('data/souls.json', 'utf8'));
+            if (!d.souls || !d.souls.length) throw new Error('no souls in data/souls.json');
             for (const s of d.souls) {
               if (!s.body || s.body.length < 400) throw new Error(s.slug + ' has no body');
               for (const k of ['name','slug','category','tags','description']) {

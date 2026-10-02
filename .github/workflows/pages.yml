@@ -1,14 +1,18 @@
-name: deploy pages
+# Alternative publisher.
+#
+# GitHub Pages for this repository is currently configured as
+# "Deploy from a branch" → main → / (root), so a push publishes the marketplace
+# at https://ohgeeceee.github.io/soulregistry/ automatically and this workflow is
+# NOT needed. It is kept, manual-only, for the case where the Pages source is
+# switched to "GitHub Actions": then run it from the Actions tab and it will
+# publish the same site from a clean staging directory.
+#
+# The two publishers must not run at the same time — a branch build and an
+# artifact deploy racing each other is how a site ends up serving stale content.
+
+name: deploy pages (manual)
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'docs/**'
-      - 'index.html'
-      - 'souls/**'
-      - 'scripts/build-registry.mjs'
-      - '.github/workflows/pages.yml'
   workflow_dispatch:
 
 permissions:
@@ -30,17 +34,21 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Regenerate marketplace data
+      - name: Regenerate the registry data
         run: node scripts/build-registry.mjs
 
+      - name: Stage the site
+        run: |
+          mkdir -p _site
+          cp -r index.html app.js styles.css data .nojekyll _site/
+          cp -r souls registry.json SPEC.md CONTRIBUTING.md README.md LICENSE _site/
+          echo "staged $(find _site -type f | wc -l) files"
+
       - uses: actions/configure-pages@v5
-        with:
-          # creates the Pages site on the first run if it does not exist yet
-          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: docs
+          path: _site
 
   deploy:
     needs: build

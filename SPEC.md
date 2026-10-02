@@ -130,7 +130,8 @@ A Soul is rejected if it is:
 Any file tree matching §2 is a valid soul. The registry adds:
 
 - `registry.json` — generated index of every soul, built by `scripts/build-registry.mjs`
-- `docs/data/souls.json` — the same index plus full `SOUL.md` bodies, for the web marketplace
+- `data/souls.json` — the same index plus full `SOUL.md` bodies, for the web marketplace
+- `data/stats.json` — the counts the marketplace header displays
 
 Both are generated artifacts. Never hand-edit them; CI regenerates and diffs them.
 

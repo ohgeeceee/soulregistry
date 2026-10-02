@@ -13,7 +13,7 @@ cd soulregistry
 mkdir -p souls/<your-github-handle>/<slug>
 # write soul.json and SOUL.md (templates below)
 node scripts/validate.mjs        # must exit 0
-node scripts/build-registry.mjs  # regenerates registry.json + docs/data/souls.json
+node scripts/build-registry.mjs  # regenerates registry.json + data/*.json
 git add -A && git commit -m "feat(souls): add <slug>" && git push
 ```
 

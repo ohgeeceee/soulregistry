@@ -30,15 +30,16 @@ souls/                  every published soul, one directory each
     STYLE.md            optional
     AGENTS.md           optional
 registry.json           generated index (do not hand-edit)
-docs/                   the GitHub Pages marketplace
-  index.html
-  app.js
-  styles.css
-  data/souls.json       generated index + full soul bodies
+index.html              the GitHub Pages marketplace (served from the repo root)
+app.js                  marketplace behaviour — no framework, no build step
+styles.css              marketplace theme
+data/
+  souls.json            generated index + full soul bodies
+  stats.json            generated counts for the marketplace header
 schema/soul.schema.json JSON Schema for soul.json
 scripts/
   validate.mjs          lint every soul in the registry
-  build-registry.mjs    regenerate registry.json + docs/data/souls.json
+  build-registry.mjs    regenerate registry.json + data/*.json
 cli/                    the zero-dependency `soul` CLI
 templates/              starter soul to copy when submitting
 SPEC.md                 the SOUL.md format specification
@@ -97,16 +98,31 @@ Browse the marketplace, copy the `SOUL.md` body, and paste it verbatim into:
 
 ```bash
 node scripts/validate.mjs        # lint every soul; exit 1 on failure
-node scripts/build-registry.mjs  # regenerate registry.json + docs/data/souls.json
+node scripts/build-registry.mjs  # regenerate registry.json + data/*.json
 node cli/index.mjs list          # inspect the registry from the CLI
 
 # preview the marketplace locally
-python3 -m http.server 8080 --directory docs
+python3 -m http.server 8080
 # → http://localhost:8080
 ```
 
 CI runs `validate.mjs` on every pull request and fails the build on a malformed soul.
 A bot commit checks that the generated artifacts are up to date.
+
+---
+
+## 🌐 How the marketplace is published
+
+The site is the repository root, served by GitHub Pages:
+
+- **Settings → Pages → Source:** `Deploy from a branch` → `main` → `/ (root)`
+- `.nojekyll` at the root disables Jekyll, so every file is served exactly as committed
+- `index.html` resolves `data/souls.json` relative to its own script URL, so the
+  marketplace also works from any subpath (and from a plain `python3 -m http.server`)
+
+`.github/workflows/pages.yml` is an optional alternative publisher, manual-only, for when
+the Pages source is switched to `GitHub Actions`. Do not run both at once — a branch build
+and an artifact deploy racing each other is how a site ends up serving stale content.
 
 ---
 

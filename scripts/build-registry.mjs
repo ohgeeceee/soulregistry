@@ -3,8 +3,8 @@
  * build-registry.mjs — regenerate the generated artifacts.
  *
  *   registry.json           metadata index of every soul (for the CLI)
- *   docs/data/souls.json    metadata + full bodies (for the marketplace)
- *   docs/data/stats.json    counts used by the marketplace header
+ *   data/souls.json         metadata + full bodies (for the marketplace)
+ *   data/stats.json         counts used by the marketplace header
  *
  * Zero dependencies. Run after adding or editing a soul.
  */
@@ -15,7 +15,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SOULS_DIR = join(ROOT, 'souls');
-const DOCS_DATA = join(ROOT, 'docs', 'data');
+const DOCS_DATA = join(ROOT, 'data');
 const SPEC_VERSION = '1.0.0';
 
 const OPTIONAL_FILES = ['IDENTITY.md', 'STYLE.md', 'AGENTS.md'];
@@ -136,7 +136,7 @@ const registry = {
   })),
 };
 
-// ---- docs/data/souls.json (with bodies, for the marketplace) --------------
+// ---- data/souls.json (with bodies, for the marketplace) -------------------
 mkdirSync(DOCS_DATA, { recursive: true });
 
 const market = {
@@ -183,6 +183,6 @@ writeFileSync(MARKET_PATH, JSON.stringify(market, null, 2) + '\n');
 writeFileSync(STATS_PATH, JSON.stringify(stats, null, 2) + '\n');
 
 console.log(`Wrote registry.json (${souls.length} souls)`);
-console.log(`Wrote docs/data/souls.json`);
-console.log(`Wrote docs/data/stats.json`);
+console.log(`Wrote data/souls.json`);
+console.log(`Wrote data/stats.json`);
 for (const s of souls) console.log(`  · ${s.slug} — ${s.sections.length} sections, ${s.lines} lines`);
